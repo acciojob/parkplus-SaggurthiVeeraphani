@@ -32,6 +32,7 @@ public class PaymentServiceImpl implements PaymentService {
         if(mode != "CASH" && mode != "UPI" && mode != "CASH"){
             throw new Exception("Payment mode not detected");
         }
+        spot.setOccupied(false);
         if(mode == "CASH"){
             payment.setPaymentMode(PaymentMode.CARD);
         }
