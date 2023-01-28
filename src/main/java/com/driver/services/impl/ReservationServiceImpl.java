@@ -51,7 +51,7 @@ public class ReservationServiceImpl implements ReservationService {
 
         for(Spot spot:spotList){
             if(twoWheeler){
-                if(!spot.isOccupied() && spot.getSpotType()==SpotType.TWO_WHEELER || spot.getSpotType() == SpotType.FOUR_WHEELER || spot.getSpotType() == SpotType.OTHERS){
+                if(!spot.getOccupied() && spot.getSpotType()==SpotType.TWO_WHEELER || spot.getSpotType() == SpotType.FOUR_WHEELER || spot.getSpotType() == SpotType.OTHERS){
                     if(spot.getPricePerHour() < Rent){
                         spot1 = spot;
                     }
@@ -59,7 +59,7 @@ public class ReservationServiceImpl implements ReservationService {
                 }
             }
             if(fourWheeler){
-                if(!spot.isOccupied() && spot.getSpotType() == SpotType.FOUR_WHEELER || spot.getSpotType() == SpotType.OTHERS){
+                if(!spot.getOccupied() && spot.getSpotType() == SpotType.FOUR_WHEELER || spot.getSpotType() == SpotType.OTHERS){
                     if(spot.getPricePerHour() < Rent){
                         spot1 = spot;
                     }
@@ -67,7 +67,7 @@ public class ReservationServiceImpl implements ReservationService {
                 }
             }
             if(Others){
-                if(!spot.isOccupied() && spot.getSpotType() == SpotType.OTHERS){
+                if(!spot.getOccupied() && spot.getSpotType() == SpotType.OTHERS){
                     if(spot.getPricePerHour() < Rent){
                         spot1 = spot;
                     }
