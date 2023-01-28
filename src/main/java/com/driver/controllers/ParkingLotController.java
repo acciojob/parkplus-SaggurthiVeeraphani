@@ -21,8 +21,7 @@ public class ParkingLotController {
     @PostMapping("/add")
     public ResponseEntity<ParkingLot> addParkingLot(@RequestParam String name, @RequestParam String address) {
         //add a new parking lot to the database
-        ParkingLot newParkingLot = new ParkingLot();
-              newParkingLot =   parkingLotService.addParkingLot(name,address);
+        ParkingLot newParkingLot = parkingLotService.addParkingLot(name,address);
         return new ResponseEntity<>(newParkingLot, HttpStatus.CREATED);
     }
 
