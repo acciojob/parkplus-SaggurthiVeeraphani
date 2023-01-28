@@ -19,9 +19,7 @@ public class ParkingLotServiceImpl implements ParkingLotService {
     SpotRepository spotRepository1;
     @Override
     public ParkingLot addParkingLot(String name, String address) {
-        ParkingLot parkingLot = new ParkingLot();
-        parkingLot.setName(name);
-        parkingLot.setAddress(address);
+        ParkingLot parkingLot = new ParkingLot(name, address);
         parkingLotRepository1.save(parkingLot);
         return parkingLot;
     }
@@ -30,22 +28,21 @@ public class ParkingLotServiceImpl implements ParkingLotService {
     public Spot addSpot(int parkingLotId, Integer numberOfWheels, Integer pricePerHour) {
         Spot spot = new Spot();
         ParkingLot parkingLot = parkingLotRepository1.findById(parkingLotId).get();
-        if(numberOfWheels <= 2){
-            spot.setSpotType(SpotType.TWO_WHEELER);
-        }
-        if(numberOfWheels >2 && numberOfWheels <= 4){
-            spot.setSpotType(SpotType.FOUR_WHEELER);
-        }
-        else if(numberOfWheels > 4){
+        if(numberOfWheels > 4){
             spot.setSpotType(SpotType.OTHERS);
         }
+        else if (numberOfWheels > 2){
+            spot.setSpotType(SpotType.FOUR_WHEELER);
+        }
+        else {
+            spot.setSpotType(SpotType.TWO_WHEELER);
+        }
         spot.setPricePerHour(pricePerHour);
-        spot.setOccupied(false);
+
         spot.setParkingLot(parkingLot);
 
-        List<Spot> spotList = parkingLot.getSpotList();
-        spotList.add(spot);
-        parkingLot.setSpotList(spotList);
+        //bidirectional
+        parkingLot.getSpotList().add(spot);
 
 //        spotRepository1.save(spot);
 
@@ -82,14 +79,16 @@ public class ParkingLotServiceImpl implements ParkingLotService {
               updatedSpot = spot;
           }
       }
-      parkingLot.setSpotList(spotList);
-      parkingLotRepository1.save(parkingLot);
+      updatedSpot.setParkingLot(parkingLot);
+
+      spotRepository1.save(updatedSpot);
+
       return updatedSpot;
 
     }
 
     @Override
     public void deleteParkingLot(int parkingLotId) {
-        parkingLotRepository1.delete(parkingLotRepository1.findById(parkingLotId).get());
+        parkingLotRepository1.deleteById(parkingLotId);
     }
 }
