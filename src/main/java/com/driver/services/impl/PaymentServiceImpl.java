@@ -35,10 +35,10 @@ public class PaymentServiceImpl implements PaymentService {
         if(mode == "CASH"){
             payment.setPaymentMode(PaymentMode.CASH);
         }
-        if(mode == "UPI"){
+        else if(mode == "UPI"){
             payment.setPaymentMode(PaymentMode.UPI);
         }
-        if(mode == "CARD"){
+        else if(mode == "CARD"){
             payment.setPaymentMode(PaymentMode.CARD);
         }
 
