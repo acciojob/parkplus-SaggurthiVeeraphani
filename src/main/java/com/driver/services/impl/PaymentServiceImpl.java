@@ -29,12 +29,11 @@ public class PaymentServiceImpl implements PaymentService {
         if(amountSent<bill){
             throw new Exception("Insufficient Amount");
         }
-        if(mode != "CASH" && mode != "UPI" && mode != "CASH"){
+        if(mode != "CASH" && mode != "UPI" && mode != "CARD"){
             throw new Exception("Payment mode not detected");
         }
-        spot.setOccupied(false);
         if(mode == "CASH"){
-            payment.setPaymentMode(PaymentMode.CARD);
+            payment.setPaymentMode(PaymentMode.CASH);
         }
         if(mode == "UPI"){
             payment.setPaymentMode(PaymentMode.UPI);
@@ -45,6 +44,8 @@ public class PaymentServiceImpl implements PaymentService {
 
         payment.setReservation(reservation1);
         payment.setPaymentCompleted(true);
+
+//        spot.setOccupied(true);
 
         reservation1.setPayment(payment);
         reservationRepository2.save(reservation1);//we are saving  reservation no need to save payment

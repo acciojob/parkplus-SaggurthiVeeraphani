@@ -23,14 +23,11 @@ public class ReservationServiceImpl implements ReservationService {
     ParkingLotRepository parkingLotRepository3;
     @Override
     public Reservation reserveSpot(Integer userId, Integer parkingLotId, Integer timeInHours, Integer numberOfWheels) throws Exception {
+        if(userRepository3.findById(userId).get() == null || parkingLotRepository3.findById(parkingLotId).get() == null){
+            throw new Exception("Cannot make reservation");
+        }
         User user = userRepository3.findById(userId).get();
-        if(user == null){
-            throw new Exception("Cannot make reservation");
-        }
         ParkingLot parkingLot = parkingLotRepository3.findById(parkingLotId).get();
-        if(parkingLot == null){
-            throw new Exception("Cannot make reservation");
-        }
         List<Spot> spotList = parkingLot.getSpotList();
         boolean twoWheeler = false;
         boolean fourWheeler = false;
