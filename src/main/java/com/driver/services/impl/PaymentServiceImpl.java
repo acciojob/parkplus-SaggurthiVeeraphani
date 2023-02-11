@@ -3,7 +3,6 @@ package com.driver.services.impl;
 import com.driver.model.Payment;
 import com.driver.model.PaymentMode;
 import com.driver.model.Reservation;
-import com.driver.model.Spot;
 import com.driver.repository.PaymentRepository;
 import com.driver.repository.ReservationRepository;
 import com.driver.services.PaymentService;
@@ -19,6 +18,7 @@ public class PaymentServiceImpl implements PaymentService {
 
     @Override
     public Payment pay(Integer reservationId, int amountSent, String mode) throws Exception {
+
         Reservation reservation = reservationRepository2.findById(reservationId).get();
 
         int billPrice = reservation.getNumberOfHours()*reservation.getSpot().getPricePerHour();

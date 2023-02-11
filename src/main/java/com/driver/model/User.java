@@ -1,23 +1,24 @@
 package com.driver.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table
 public class User {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
     private String name;
+
     private String phoneNumber;
+
     private String password;
 
-    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
-    private List<Reservation> reservationList;
-
-    //Constructor,Getter and Setter
-
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Reservation> reservationList = new ArrayList<>();
 
     public User() {
     }
@@ -60,11 +61,11 @@ public class User {
         this.password = password;
     }
 
-    public List<Reservation> getReservationList() {
-        return reservationList;
-    }
-
     public void setReservationList(List<Reservation> reservationList) {
         this.reservationList = reservationList;
+    }
+
+    public List<Reservation> getReservationList() {
+        return reservationList;
     }
 }

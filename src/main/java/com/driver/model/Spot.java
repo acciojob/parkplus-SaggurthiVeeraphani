@@ -1,40 +1,39 @@
 package com.driver.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table
 public class Spot {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Enumerated(value = EnumType.STRING)
+    @Enumerated(EnumType.STRING)
     private SpotType spotType;
 
     private int pricePerHour;
-    private boolean occupied = false;
+
+    private boolean occupied;
 
     @ManyToOne
     @JoinColumn
     private ParkingLot parkingLot;
 
-    @OneToMany(mappedBy = "spot",cascade = CascadeType.ALL)
-    List<Reservation> reservationList;
-
-    //Constructor,Getter and setter
-
+    @OneToMany(mappedBy = "spot", cascade = CascadeType.ALL)
+    private List<Reservation> reservationList= new ArrayList<>();
 
     public Spot() {
+        this.occupied = false;
     }
 
     public Spot(SpotType spotType, int pricePerHour, boolean occupied) {
         this.spotType = spotType;
         this.pricePerHour = pricePerHour;
-        this.occupied = occupied;
+        this.occupied = false;
     }
-
 
     public int getId() {
         return id;
@@ -83,4 +82,6 @@ public class Spot {
     public void setReservationList(List<Reservation> reservationList) {
         this.reservationList = reservationList;
     }
+
+
 }
